@@ -3,6 +3,9 @@ members = [
     "01-hello-embedding",
     "02-memory-chain",
     "03-semantic-search",
+    "04-simple-inference",
+    "05-rag-pipeline",
+    "06-rollback-agent",
 ]
 resolver = "2"
 
@@ -14,3 +17,4 @@ license = "MIT"
 imece_core = { path = "../imece-core" }
 ndarray = "0.16"
 tokio = { version = "1", features = ["full"] }
+tracing-subscriber = { version = "0.3", features = ["fmt"] }

@@ -10,24 +10,38 @@ These examples demonstrate how to use each module of `imece_core` independently 
 
 ## Available Examples
 
-| # | Example | Modules | LLM Required | Description |
-|---|---------|---------|:---:|-------------|
-| 01 | [hello-embedding](./01-hello-embedding/) | Embedding | ❌ | Local embedding generation with Voyage-4 Nano, cosine similarity |
-| 02 | [memory-chain](./02-memory-chain/) | Memory + Embedding | ❌ | DMCE chain-of-memory evolution with diagnostic visualization |
-| 03 | [semantic-search](./03-semantic-search/) | Memory (LanceDB) + Embedding | ❌ | Persistent semantic search engine with interactive query loop |
-
-> **🚧 Coming Soon:** Additional examples covering the Inference (KV-Cache Rollback) and Actor (Multi-Agent Swarm) modules are planned. These will demonstrate LLM-powered use cases including single-agent chat, coder-reviewer swarms, RAG pipelines, and the full autonomous agent pipeline.
+| # | Example | Modules | LLM Required | Level | Description |
+|---|---------|---------|:---:|:---:|-------------|
+| 01 | [hello-embedding](./01-hello-embedding/) | Embedding | ❌ | ⭐ | Local embedding generation with Voyage-4 Nano, cosine similarity |
+| 02 | [memory-chain](./02-memory-chain/) | Memory + Embedding | ❌ | ⭐ | DMCE chain-of-memory evolution with diagnostic visualization |
+| 03 | [semantic-search](./03-semantic-search/) | Memory (LanceDB) + Embedding | ❌ | ⭐⭐ | Persistent semantic search engine with interactive query loop |
+| 04 | [simple-inference](./04-simple-inference/) | Inference | ✅ | ⭐⭐ | Load a GGUF model and generate text with token streaming |
+| 05 | [rag-pipeline](./05-rag-pipeline/) | Memory + Embedding + Inference | ✅ | ⭐⭐⭐ | End-to-end RAG: embed → DMCE chain → LLM answer |
+| 06 | [rollback-agent](./06-rollback-agent/) | Inference (KV-Cache Rollback) | ✅ | ⭐⭐⭐ | **Flagship demo** — KV-Cache "Time Travel" self-correction |
 
 ---
 
 ## Prerequisites
 
-- **Rust** 1.70+ (2021 edition)
-- **Embedding model** (for all examples): Voyage-4 Nano ONNX model files
+### All Examples
+- **Rust** 1.91+ (2021 edition)
+
+### Examples 01–05 (Embedding)
+- **Embedding model**: Voyage-4 Nano ONNX model files
   - `model.onnx` — the ONNX-exported model
   - `tokenizer.json` — HuggingFace tokenizer
 
-Place these files in a `models/voyage-4-nano-onnx/` directory, or pass a custom path via the `--model-dir` flag.
+Place these in a `models/voyage-4-nano-onnx/` directory, or pass a custom path via `--model-dir` / `--embedding-dir`.
+
+### Examples 04–06 (LLM Inference)
+- **CMake** 3.14+ (for llama.cpp compilation)
+- **C++ compiler** (GCC / Clang)
+- **GGUF model file** — recommended: [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/Qwen/Qwen3.5-0.8B-GGUF) (~500 MB)
+
+Place the `.gguf` file in a `models/` directory, or pass a custom path via `--model-path`.
+
+### Example 06 (Rollback Agent)
+- **Python 3** installed (for sandbox code execution)
 
 ---
 
@@ -38,6 +52,8 @@ Place these files in a `models/voyage-4-nano-onnx/` directory, or pass a custom 
 git clone https://github.com/imece-ai/imece-examples.git
 cd imece-examples
 
+# ── Embedding-only examples (no LLM needed) ──
+
 # Run the first example (requires embedding model)
 cargo run -p hello-embedding -- --model-dir models/voyage-4-nano-onnx
 
@@ -46,6 +62,19 @@ cargo run -p memory-chain -- --model-dir models/voyage-4-nano-onnx
 
 # Run the interactive semantic search
 cargo run -p semantic-search -- --model-dir models/voyage-4-nano-onnx
+
+# ── LLM-powered examples (requires GGUF model) ──
+
+# Simple text generation with token streaming
+cargo run -p simple-inference -- --model-path models/Qwen3.5-0.8B-Q4_K_M.gguf
+
+# End-to-end RAG pipeline (embedding + DMCE + LLM)
+cargo run -p rag-pipeline -- \
+  --model-path models/Qwen3.5-0.8B-Q4_K_M.gguf \
+  --embedding-dir models/voyage-4-nano-onnx
+
+# 🧠 KV-Cache "Time Travel" Rollback (the flagship demo)
+cargo run -p rollback-agent -- --model-path models/Qwen3.5-0.8B-Q4_K_M.gguf
 ```
 
 ---
@@ -65,7 +94,19 @@ imece-examples/
 │   ├── Cargo.toml
 │   ├── README.md
 │   └── src/main.rs
-└── 03-semantic-search/         # ⭐⭐ Intermediate — persistent search
+├── 03-semantic-search/         # ⭐⭐ Intermediate — persistent search
+│   ├── Cargo.toml
+│   ├── README.md
+│   └── src/main.rs
+├── 04-simple-inference/        # ⭐⭐ Intermediate — LLM text generation
+│   ├── Cargo.toml
+│   ├── README.md
+│   └── src/main.rs
+├── 05-rag-pipeline/            # ⭐⭐⭐ Advanced — end-to-end RAG
+│   ├── Cargo.toml
+│   ├── README.md
+│   └── src/main.rs
+└── 06-rollback-agent/          # ⭐⭐⭐ Advanced — KV-Cache Rollback
     ├── Cargo.toml
     ├── README.md
     └── src/main.rs
