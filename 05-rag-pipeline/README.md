@@ -18,7 +18,7 @@ End-to-end **Retrieval-Augmented Generation** combining three IMECE modules:
 ## Prerequisites
 
 - **Rust** 1.91+, **CMake** 3.14+
-- **GGUF model** — [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/Qwen/Qwen3.5-0.8B-GGUF)
+- **GGUF model** — [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF)
 - **Embedding model** — Voyage-4 Nano ONNX files (`model.onnx` + `tokenizer.json`)
 
 ## Usage

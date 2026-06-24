@@ -32,7 +32,7 @@
 ## Prerequisites
 
 - **Rust** 1.91+, **CMake** 3.14+
-- **GGUF model** — [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/Qwen/Qwen3.5-0.8B-GGUF)
+- **GGUF model** — [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF)
 - **Python 3** installed (for sandbox execution)
 
 ## Usage

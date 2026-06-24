@@ -14,7 +14,7 @@ Run a local LLM and generate text with token-by-token streaming — the simplest
 
 - **Rust** 1.91+ (2021 edition)
 - **CMake** 3.14+ (for llama.cpp compilation)
-- **GGUF model file** — recommended: [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/Qwen/Qwen3.5-0.8B-GGUF) (~500 MB)
+- **GGUF model file** — recommended: [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF) (~500 MB)
 
 ## Usage
 

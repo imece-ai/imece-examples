@@ -36,7 +36,7 @@ Place these in a `models/voyage-4-nano-onnx/` directory, or pass a custom path v
 ### Examples 04–06 (LLM Inference)
 - **CMake** 3.14+ (for llama.cpp compilation)
 - **C++ compiler** (GCC / Clang)
-- **GGUF model file** — recommended: [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/Qwen/Qwen3.5-0.8B-GGUF) (~500 MB)
+- **GGUF model file** — recommended: [Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF) (~500 MB)
 
 Place the `.gguf` file in a `models/` directory, or pass a custom path via `--model-path`.
 
